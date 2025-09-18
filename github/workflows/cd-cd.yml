@@ -9,12 +9,23 @@ on:
     build-and-deploy:
       runs-on : ubuntu-latest
       steps:
+        # CHECKOUT THE CODE:
         - uses: actions/checkout@v2
+
+
+        # BUILD THE JAR FILE:
+        - uses: actions/setup-java
+        - name: build the jar file
+          run: |
+             ./mvnw clean package -DskipTests
+          
+
+        - name: build and deploy the docker image
         - uses: azure/docker-login@v1
           with:
-            - login_server: testregistrysamid.azurecr.io
-            - username: testregistrysamid
-            - password: plKRBisvEnzLlAOcl+T+x1zz8husuMWJcVRetAYRs1+ACRAwj5XV
+            - login_server: ${{ secrets.AZURE_ACR_LOGIN_SERVER }}
+            - username: ${{ secrets.AZURE_ACR_USERNAME }}
+            - password: ${{ secrets.AZURE_ACR_PASSWORD }}
         - run: |
             docker build -t testregistrysamid.azurecr.io/myapp:${{ github.sha }}
             docker push testregistrysamid.azurecr.io/myapp:${{ github.sha }}
