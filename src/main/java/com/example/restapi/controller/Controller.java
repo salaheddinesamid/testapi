@@ -13,4 +13,9 @@ public class Controller {
     public String get(){
         return "Hello this is the new feature";
     }
+
+    @GetMapping("test")
+    public String test(){
+        return "test";
+    }
 }
