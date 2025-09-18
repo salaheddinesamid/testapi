@@ -39,4 +39,4 @@ jobs:
       # Deploy the image to ACI
       - name: Deploy to ACI
         run: |
-          az container create --resource-group samidGroup --name testregistrysamid --image testregistrysamid.azurecr.io/testapp:latest --dns-name-label testapisamid --ports 8080 --registry-login-server testregistrysamid.azurecr.io --registry-username testregistrysamid --registry-password V2j6WZNbhLJw90Jxxr0TCZbxfclKybyGYPK7u58LMI+ACRCIqco3 --os-type linux --cpu 1 --memory 1.5
+          az container create --resource-group samidGroup --name ${{ secrets.REGISTRY_USERNAME }} --image testregistrysamid.azurecr.io/testapp:latest --dns-name-label testapisamid --ports 8080 --registry-login-server ${{ secrets.REGISTRY_LOGIN_SERVER }} --registry-username testregistrysamid --registry-password V2j6WZNbhLJw90Jxxr0TCZbxfclKybyGYPK7u58LMI+ACRCIqco3 --os-type linux --cpu 1 --memory 1.5
